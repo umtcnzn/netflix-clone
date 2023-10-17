@@ -1,3 +1,7 @@
+import { useState } from "react"
+import { BsEyeSlash, BsEye } from "react-icons/bs"
+
+
 type InputProps = {
     id: string
     onChange: any
@@ -6,12 +10,21 @@ type InputProps = {
     type?: string
 }
 
-export default function Input(props: InputProps) {
 
+
+export default function Input(props: InputProps) {
+    const [type, setType] = useState("password");
+
+    function setTypefor() {
+        if (type == "password")
+            setType("text")
+        else
+            setType("password")
+    }
     return (
         <>
             <div className="relative">
-                <input id={props.id} onChange={props.onChange} type={props.type} value={props.value} className="
+                <input id={props.id} onChange={props.onChange} type={props.type == "password" ? type : props.type} value={props.value} className="
             block
             rounded-md
             px-6
@@ -43,6 +56,11 @@ export default function Input(props: InputProps) {
                 peer-focus:scale-75
                 peer-focus:-translate-y-3
                        ">{props.label}</label>
+                {props.type == "password" && (<div className="absolute cursor-pointer top-4 left-72 hover:opacity-50 transition" onClick={() => setTypefor()}>
+                    {type == "password" && (<BsEyeSlash size={20} className={"text-white"} />)}
+                    {type == "text" && (<BsEye size={20} className={"text-white"} />)}
+                </div>
+                )}
             </div>
 
         </>
