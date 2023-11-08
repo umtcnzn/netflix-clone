@@ -1,6 +1,7 @@
-
+"use client"
 import { ReactQueryProvider } from '@/components/ReactQueryProvider'
 import './globals.css'
+import { SessionProvider } from "next-auth/react"
 
 
 export default function RootLayout({
@@ -11,9 +12,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <ReactQueryProvider>
-        <body>
-          {children}
-        </body>
+        <SessionProvider>
+          <body>
+            {children}
+          </body>
+        </SessionProvider>
       </ReactQueryProvider>
 
     </html>

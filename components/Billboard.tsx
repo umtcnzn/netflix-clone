@@ -5,6 +5,7 @@ import {
 import { Movie } from "@prisma/client";
 import axios from "axios";
 import { AiOutlineInfoCircle } from "react-icons/ai"
+import PlayButton from "./PlayButton";
 
 const Billboard = () => {
 
@@ -30,9 +31,11 @@ const Billboard = () => {
                     <p className="text-white text-[8px] md:text-lg mt-3 md:mt-8 w-[90%] md:w-[80%] lg:w-[50%] drop-shadow-xl">
                         {randomMovie?.description}
                     </p>
-                    <div className="items-center mt-3 md:mt-4 gap-3">
+                    <div className="items-center mt-3 md:mt-4 gap-3 flex flex-row">
+                        <PlayButton movieId={randomMovie?.id!} />
                         <button className="
                     flex flex-row
+                    gap-1
                     bg-white
                     text-white
                     bg-opacity-30
@@ -45,7 +48,7 @@ const Billboard = () => {
                     items-center
                     hover:bg-opacity-20
                     transition">
-                            <AiOutlineInfoCircle size={25} className={"mr-1"} />
+                            <AiOutlineInfoCircle size={25} />
                             More Info
                         </button>
                     </div>

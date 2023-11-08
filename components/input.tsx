@@ -21,6 +21,8 @@ export default function Input(props: InputProps) {
         else
             setType("password")
     }
+
+    const Icon = type == "password" ? BsEyeSlash : BsEye;
     return (
         <>
             <div className="relative">
@@ -39,8 +41,8 @@ export default function Input(props: InputProps) {
             focus:ring-0
             peer
             "
-                    placeholder=" "
-                />
+                    placeholder=""
+                ></input>
                 <label htmlFor={props.id}
                     className="absolute text-md text-zinc-400
                 duration-150
@@ -57,8 +59,7 @@ export default function Input(props: InputProps) {
                 peer-focus:-translate-y-3
                        ">{props.label}</label>
                 {props.type == "password" && (<div className="absolute cursor-pointer top-4 left-72 hover:opacity-50 transition" onClick={() => setTypefor()}>
-                    {type == "password" && (<BsEyeSlash size={20} className={"text-white"} />)}
-                    {type == "text" && (<BsEye size={20} className={"text-white"} />)}
+                    <Icon size={20} color={"white"} />
                 </div>
                 )}
             </div>

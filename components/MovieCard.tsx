@@ -1,16 +1,21 @@
 import { Movie } from "@prisma/client"
 import { BsFillPlayFill } from "react-icons/bs"
-import { TbRating18Plus } from "react-icons/tb"
 import FavoriteButton from "./FavoriteButton"
+
+import { useRouter } from "next/navigation"
+import { useRef, useState } from "react";
 
 
 
 
 export default function MovieCard({ movie }: { movie: Movie }) {
 
+    const router = useRouter();
+
+    const [showVideo, setShowVideo] = useState(false);
 
     return <>
-        <div className="group bg-zinc-900 col-span relative h-[10vw]">
+        <div onMouseEnter={() => setShowVideo(true)} onMouseLeave={() => setShowVideo(false)} className="group bg-zinc-900 col-span relative h-[10vw]">
 
             <img className="cursor-pointer
             object-cover
@@ -24,7 +29,7 @@ export default function MovieCard({ movie }: { movie: Movie }) {
             w-full
             h-[10vw]"
                 src={movie.thumbnailUrl} alt="Thumbnail" />
-            <div className="opacity-0
+            <div className={`opacity-0
                 absolute
                 top-0
                 transition
@@ -38,8 +43,9 @@ export default function MovieCard({ movie }: { movie: Movie }) {
                 group-hover:scale-110
                 group-hover:-translate-y-[3vw]
                 group-hover:translate-x-[1vw]
-                group-hover:opacity-100">
-                <img className="
+                group-hover:opacity-100`
+            }>
+                {showVideo ? <video autoPlay loop muted className="
                     cursor-pointer
                     object-cover
                     transition
@@ -47,7 +53,14 @@ export default function MovieCard({ movie }: { movie: Movie }) {
                     shadow-xl
                     rounded-t-md
                     w-full
-                    h-[10vw]" src={movie.thumbnailUrl} alt="Thumbnail" />
+                    h-[10vw]" src={movie.videoUrl}></video> : <img src={movie.thumbnailUrl} className="cursor-pointer
+                    object-cover
+                    transition
+                    duration
+                    shadow-xl
+                    rounded-t-md
+                    w-full
+                    h-[10vw]"/>}
                 <div className="z-10
                     bg-zinc-800
                     p-2
@@ -58,8 +71,7 @@ export default function MovieCard({ movie }: { movie: Movie }) {
                     shadow-md
                     rounded-b-md">
                     <div className="flex flex-row items-center gap-3">
-                        <div className="cursor-pointer
-                        w-6 h-6
+                        <button onClick={() => router.push(`/watch/${movie.id}`)} className="w-6 h-6
                         lg:w-10 lg:h-10
                         bg-white
                         rounded-full
@@ -67,9 +79,9 @@ export default function MovieCard({ movie }: { movie: Movie }) {
                         justify-center
                         items-center
                         transition
-                        hover:bg-neutral-300" onClick={() => { }}>
+                        hover:bg-neutral-300">
                             <BsFillPlayFill className={"ml-0.5"} size={30} />
-                        </div>
+                        </button>
                         <FavoriteButton movieId={movie.id} />
                     </div>
                     <div className="flex flex-row mt-2 items-center gap-2">

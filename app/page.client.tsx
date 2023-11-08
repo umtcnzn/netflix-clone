@@ -39,8 +39,8 @@ export default function HomeClient() {
       <Navbar />
       <Billboard />
       <div className="pb-40">
-        {!movies.isLoading && <MovieList title="Trending Now" movies={movies.data!} />}
-        {!favMovies.isLoading && <MovieList title="My List" movies={favMovies.data!} />}
+        {!movies.isLoading && (<MovieList title="Trending Now" movies={movies.data!} />)}
+        {!favMovies.isLoading && (<MovieList title="My List" movies={favMovies.data!} />)}
       </div>
     </>
 

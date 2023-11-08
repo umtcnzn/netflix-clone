@@ -12,6 +12,15 @@ export default function Navbar() {
     const [showAccountMenu, setAccountMenu] = useState(false);
     const [showBackground, setShowBackground] = useState(false);
 
+    const toogleMobileMenu = useCallback(() => {
+        setShowMobileMenu(current => !current)
+    }, [])
+
+    const toogleAccountMenu = useCallback(() => {
+        setAccountMenu(current => !current)
+    }, [])
+
+
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY >= TOP_OFFSET) {
@@ -25,15 +34,8 @@ export default function Navbar() {
         return () => {
             window.removeEventListener("scroll", handleScroll);
         }
-    }, [])
+    }, [showMobileMenu])
 
-    const toogleMobileMenu = useCallback(() => {
-        setShowMobileMenu(current => !current)
-    }, [])
-
-    const toogleAccountMenu = useCallback(() => {
-        setAccountMenu(current => !current)
-    }, [])
 
     return <>
         <nav className="w-full z-40 fixed">

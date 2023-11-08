@@ -12,7 +12,7 @@ export async function GET(request:Request){
     const favoriteMovies = await prisma.movie.findMany({
         where:{
             id:{
-                in:currentUser.favoriteIds
+                in:currentUser.favoriteIds,
             }
         },
     })

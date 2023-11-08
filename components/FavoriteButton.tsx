@@ -17,17 +17,29 @@ export default function FavoriteButton({ movieId }: { movieId: string }) {
     const Icon = isFavorite ? AiOutlineCheck : AiOutlinePlus;
 
 
-    const mutation = useMutation({
+    const addMutation = useMutation({
         mutationFn: () => {
             return axios.post("/api/updateFavs", { movieId })
         },
-        onSuccess: () => { queryClient.invalidateQueries(); queryClient.refetchQueries() }
+        onSuccess: () => { queryClient.invalidateQueries(); }
+    })
+
+    const deleteMutation = useMutation({
+        mutationFn: () => {
+            return axios.delete("/api/updateFavs", { data: { movieId } })
+        },
+        onSuccess: () => { queryClient.invalidateQueries(); }
     })
 
 
+
     const toogleFav = useCallback(() => {
-        mutation.mutate();
-    }, [movieId, isFavorite, user, mutation])
+        if (isFavorite) {
+            deleteMutation.mutate()
+            return;
+        }
+        addMutation.mutate();
+    }, [movieId, isFavorite, user, addMutation, deleteMutation])
 
 
     return <>

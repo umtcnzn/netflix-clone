@@ -17,7 +17,8 @@ import {compare} from "bcrypt"
 export const authOptions : NextAuthOptions ={
     adapter:PrismaAdapter(prisma),
     pages:{
-        signIn:"/auth"
+        signIn:"/auth",
+        error:"/auth"
     },
     session:{
         strategy: 'jwt',
